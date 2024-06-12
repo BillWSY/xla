@@ -461,7 +461,7 @@ cc_library(
     name = "hlo_module_loader",
     srcs = ["hlo_module_loader.cc"],
     hdrs = ["hlo_module_loader.h"],
-    visibility = ["//xla:friends"],
+    visibility = ["//visibility:public"],
     deps = [
         ":run_hlo_module_proto_cc",
         "//xla:debug_options_flags",
