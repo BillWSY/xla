@@ -1,0 +1,54 @@
+# ==============================================================================
+# rules_proto: https://github.com/bazelbuild/rules_proto
+bazel_dep(name = "rules_proto", version = "6.0.0")
+
+# ==============================================================================
+# rules_cc: https://github.com/bazelbuild/rules_cc
+bazel_dep(name = "rules_cc", version = "0.0.9")
+
+# ==============================================================================
+# rules_foreign_cc: https://github.com/bazelbuild/rules_foreign_cc
+bazel_dep(name = "rules_foreign_cc", version = "0.10.1")
+
+# ==============================================================================
+# rules_go: https://github.com/bazelbuild/rules_go
+bazel_dep(name = "rules_go", version = "0.48.0")
+
+# ==============================================================================
+# bazel-gazelle: https://github.com/bazelbuild/bazel-gazelle
+bazel_dep(name = "gazelle", version = "0.37.0")
+
+# ==============================================================================
+# rules_dotnet: https://github.com/bazelbuild/rules_dotnet
+bazel_dep(name = "rules_dotnet", version = "0.15.1")
+
+dotnet = use_extension("@rules_dotnet//dotnet:extensions.bzl", "dotnet")
+dotnet.toolchain(dotnet_version = "8.0.200")
+use_repo(dotnet, "dotnet_toolchains")
+
+register_toolchains("@dotnet_toolchains//:all")
+
+# ==============================================================================
+# rules_python: https://github.com/bazelbuild/rules_python
+bazel_dep(name = "rules_python", version = "0.32.2")
+
+pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
+
+pip.parse(
+    hub_name = "pip_deps",
+    python_version = "3.11",
+    requirements_lock = "//third_party/python:requirements.lock.txt",
+)
+
+use_repo(pip, "pip_deps")
+
+bazel_dep(name = "googletest", version = "1.14.0.bcr.1", repo_name="com_google_googletest")
+bazel_dep(name = "gflags", version = "2.2.2", repo_name="com_github_gflags_gflags")
+bazel_dep(name = "glog", version = "0.7.1", repo_name="com_github_google_glog")
+bazel_dep(name = "googleapis", version = "0.0.0-20240326-1c8d509c5")
+bazel_dep(name = "abseil-cpp", version = "20230802.1", repo_name="com_google_absl")
+bazel_dep(name = "re2", version = "2023-09-01")
+bazel_dep(name = "cctz", version = "2.4")
+bazel_dep(name = "eigen", version = "3.4.0")
+bazel_dep(name = "protobuf", version = "23.1", repo_name="com_google_protobuf")
+bazel_dep(name = "grpc", version = "1.56.3.bcr.1", repo_name="com_github_grpc_grpc")
